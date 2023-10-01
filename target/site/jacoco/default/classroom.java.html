@@ -46,36 +46,36 @@ import java.io.IOException;
 
     // Method 7: Execute an OS command without proper input validation (vulnerable to command injection)
     public void executeCommand(String command) throws IOException {
-<span class="fc" id="L49">        Runtime.getRuntime().exec(command);</span>
-<span class="fc" id="L50">    }</span>
+<span class="nc" id="L49">        Runtime.getRuntime().exec(command);</span>
+<span class="nc" id="L50">    }</span>
 
     // Method 8: Store user profile data
     public void storeUserProfileData(String username, String email, int age) {
         // Normal code to store user profile data in a secure way, e.g., in a database
-<span class="fc" id="L55">        System.out.println(&quot;Storing user profile data:&quot;);</span>
-<span class="fc" id="L56">        System.out.println(&quot;Username: &quot; + username);</span>
-<span class="fc" id="L57">        System.out.println(&quot;Email: &quot; + email);</span>
-<span class="fc" id="L58">        System.out.println(&quot;Age: &quot; + age);</span>
-<span class="fc" id="L59">    }</span>
+<span class="nc" id="L55">        System.out.println(&quot;Storing user profile data:&quot;);</span>
+<span class="nc" id="L56">        System.out.println(&quot;Username: &quot; + username);</span>
+<span class="nc" id="L57">        System.out.println(&quot;Email: &quot; + email);</span>
+<span class="nc" id="L58">        System.out.println(&quot;Age: &quot; + age);</span>
+<span class="nc" id="L59">    }</span>
 
     // Method 9: Encrypt sensitive data
     public String encryptData(String data) {
         // Normal code to encrypt sensitive data using a secure encryption algorithm
         // In this example, we'll use a simple Caesar cipher for illustration purposes.
-<span class="fc" id="L65">        StringBuilder encrypted = new StringBuilder();</span>
-<span class="fc" id="L66">        int shift = 3; // Shift value for the Caesar cipher</span>
-<span class="fc bfc" id="L67" title="All 2 branches covered.">        for (char c : data.toCharArray()) {</span>
-<span class="pc bpc" id="L68" title="1 of 2 branches missed.">            if (Character.isLetter(c)) {</span>
-<span class="fc" id="L69">                char shifted = (char) (c + shift);</span>
-<span class="pc bpc" id="L70" title="2 of 8 branches missed.">                if ((Character.isUpperCase(c) &amp;&amp; shifted &gt; 'Z') || (Character.isLowerCase(c) &amp;&amp; shifted &gt; 'z')) {</span>
+<span class="nc" id="L65">        StringBuilder encrypted = new StringBuilder();</span>
+<span class="nc" id="L66">        int shift = 3; // Shift value for the Caesar cipher</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        for (char c : data.toCharArray()) {</span>
+<span class="nc bnc" id="L68" title="All 2 branches missed.">            if (Character.isLetter(c)) {</span>
+<span class="nc" id="L69">                char shifted = (char) (c + shift);</span>
+<span class="nc bnc" id="L70" title="All 8 branches missed.">                if ((Character.isUpperCase(c) &amp;&amp; shifted &gt; 'Z') || (Character.isLowerCase(c) &amp;&amp; shifted &gt; 'z')) {</span>
 <span class="nc" id="L71">                    shifted = (char) (c - (26 - shift));</span>
                 }
-<span class="fc" id="L73">                encrypted.append(shifted);</span>
-<span class="fc" id="L74">            } else {</span>
+<span class="nc" id="L73">                encrypted.append(shifted);</span>
+<span class="nc" id="L74">            } else {</span>
 <span class="nc" id="L75">                encrypted.append(c); // Leave non-letter characters unchanged</span>
             }
         }
-<span class="fc" id="L78">        return encrypted.toString();</span>
+<span class="nc" id="L78">        return encrypted.toString();</span>
     }
 
     public void redirectToExternalURL(String externalURL) throws IOException {
