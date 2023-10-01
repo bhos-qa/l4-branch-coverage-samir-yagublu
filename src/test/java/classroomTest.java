@@ -1,72 +1,50 @@
+import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+
 public class classroomTest {
-    private classroom classroomInstance;
+    private classroom classroom;
 
     @BeforeEach
     public void setUp() {
-        classroomInstance = new classroom("Math");
+        classroom = new classroom();
     }
 
-    // Test Method 1: Set the classroom name
     @Test
-    public void testSetClassName() {
-        classroomInstance.setClassName("Science");
-        assertEquals("Science", classroomInstance.getClassName());
+    public void testAdd() {
+        assertEquals(5, classroom.add(2, 3));
+        assertEquals(-1, classroom.add(2, -3));
+        assertEquals(0, classroom.add(0, 0));
     }
 
-    // Test Method 3: Add a student to the classroom
     @Test
-    public void testAddStudent() {
-        classroomInstance.addStudent("John");
-        assertEquals(1, classroomInstance.getNumberOfStudents());
+    public void testSubtract() {
+        assertEquals(1, classroom.subtract(3, 2));
+        assertEquals(5, classroom.subtract(2, -3));
+        assertEquals(0, classroom.subtract(0, 0));
     }
 
-    // Test Method 6: Open the classroom (positive case)
     @Test
-    public void testOpenClassroom() {
-        classroomInstance.openClassroom("secretPassword123");
-        assertTrue(classroomInstance.isClassOpen());
+    public void testMultiply() {
+        assertEquals(6, classroom.multiply(2, 3));
+        assertEquals(-6, classroom.multiply(2, -3));
+        assertEquals(0, classroom.multiply(0, 3));
     }
 
-    // Test Method 6: Open the classroom (negative case)
     @Test
-    public void testOpenClassroomIncorrectPassword() {
-        classroomInstance.openClassroom("wrongPassword");
-        assertFalse(classroomInstance.isClassOpen());
+    public void testDivide() {
+        assertEquals(2.0, classroom.divide(6, 3), 0.001);
+        assertEquals(-2.0, classroom.divide(-6, 3), 0.001);
+
+        assertThrows(ArithmeticException.class, () -> {
+            classroom.divide(5, 0);
+        });
     }
 
-    // Test Method 9: Vulnerable method - Execute a command without permission
     @Test
-    public void testExecuteCommand() {
-        classroomInstance.openClassroom("secretPassword123");
-        String result = captureSystemOut(() -> classroomInstance.executeCommand("ls -l"));
-        assertTrue(result.contains("Executing command: ls -l"));
-    }
-
-    // Test Method 10: Vulnerable method - Access sensitive data without proper authorization
-    @Test
-    public void testGetSensitiveData() {
-        classroomInstance.openClassroom("secretPassword123");
-        String data = classroomInstance.getSensitiveData("grades");
-        assertTrue(data.contains("Student grades"));
-    }
-
-    // Utility method to capture System.out.println output
-    private String captureSystemOut(Runnable action) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outputStream));
-
-        try {
-            action.run();
-            System.out.flush();
-            return outputStream.toString();
-        } finally {
-            System.setOut(originalOut);
-        }
+    public void testFindMax() {
+        assertEquals(5, classroom.findMax(3, 5));
+        assertEquals(2, classroom.findMax(2, 2));
+        assertEquals(-1, classroom.findMax(-1, -5));
     }
 }

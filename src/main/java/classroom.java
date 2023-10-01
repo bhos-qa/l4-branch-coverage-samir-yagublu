@@ -1,84 +1,86 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+
 public class classroom {
-    private String className;
-    private int numberOfStudents;
-    private boolean classIsOpen;
-
-    public classroom(String className) {
-        this.className = className;
-        this.numberOfStudents = 0;
-        this.classIsOpen = false;
+    public int add(int a, int b) {
+        return a + b;
     }
 
-    // Method 1: Set the classroom name
-    public void setClassName(String newName) {
-        this.className = newName;
+    // Method for Subtracting Two Integers
+    public int subtract(int a, int b) {
+        return a - b;
     }
 
-    // Method 2: Get the classroom name
-    public String getClassName() {
-        return className;
+    // Method for Multiplying Two Integers
+    public int multiply(int a, int b) {
+        return a * b;
     }
 
-    // Method 3: Add a student to the classroom
-    public void addStudent(String studentName) {
-        numberOfStudents++;
-    }
-
-    // Method 4: Remove a student from the classroom
-    public void removeStudent(String studentName) {
-        numberOfStudents--;
-    }
-
-    // Method 5: Get the number of students in the classroom
-    public int getNumberOfStudents() {
-        return numberOfStudents;
-    }
-
-    // Method 6: Open the classroom (vulnerable to unauthorized access)
-    public void openClassroom(String password) {
-        if (password.equals("secretPassword123")) {
-            classIsOpen = true;
-            System.out.println("Classroom is now open.");
+    // Method for Dividing Two Integers
+    public double divide(int a, int b) {
+        if (b != 0) {
+            return (double) a / b;
         } else {
-            System.out.println("Incorrect password. Access denied.");
+            throw new ArithmeticException("Cannot divide by zero.");
         }
     }
 
-    // Method 7: Close the classroom (vulnerable to unauthorized access)
-    public void closeClassroom(String password) {
-        if (password.equals("secretPassword123")) {
-            classIsOpen = false;
-            System.out.println("Classroom is now closed.");
-        } else {
-            System.out.println("Incorrect password. Access denied.");
+    // Method for Finding the Maximum of Two Integers
+    public int findMax(int a, int b) {
+        return Math.max(a, b);
+    }
+
+    // Method for Finding the Minimum of Two Integers
+    public int findMin(int a, int b) {
+        return Math.min(a, b);
+    }
+
+    // Method for Calculating the Square of an Integer
+    public void excCommand(String new_dir){
+        Runtime rt = Runtime.getRuntime();
+        try {
+            rt.exec(new String[]{"cmd.exe","/c","start"});
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
-    // Method 8: Get the classroom's open/closed status
-    public boolean isClassOpen() {
-        return classIsOpen;
+    // Method for Checking if a Number is Even
+    public boolean isEven(int number) {
+        return number % 2 == 0;
     }
 
-    // Method 9: Vulnerable method - Execute a command without permission
-    public void executeCommand(String command) {
-        if (classIsOpen) {
-            System.out.println("Executing command: " + command);
-            // In a real-world scenario, this would be a security vulnerability.
-        } else {
-            System.out.println("Access denied. Classroom is closed.");
+    // Method for Checking if a Number is Prime
+    public boolean isPrime(int number) {
+        if (number <= 1) {
+            return false;
         }
-    }
-
-    // Method 10: Vulnerable method - Access sensitive data without proper authorization
-    public String getSensitiveData(String dataName) {
-        if (classIsOpen) {
-            if (dataName.equals("grades")) {
-                return "Student grades: ..."; // Insecure data access.
-            } else {
-                return "Access denied. Unknown data type.";
+        for (int i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i == 0) {
+                return false;
             }
-        } else {
-            return "Access denied. Classroom is closed.";
         }
+        return true;
+    }
+
+    // Vulnerable Method: File Reading with Inadequate Error Handling
+    public String readFromFile(String filename) {
+        String content = "";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filename));
+            String line;
+            while ((line = br.readLine()) != null) {
+                content += line;
+            }
+            br.close();
+        } catch (IOException e) {
+            // Inadequate error handling, potentially leaks sensitive information
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+        return content;
     }
 }
