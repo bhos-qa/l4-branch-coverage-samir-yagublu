@@ -4,9 +4,9 @@ name: test-java
 
 on:
   push:
-    branches: [ "feature/lab2" ]
+    branches: [ "feature/lab4" ]
   pull_request:
-    branches: [ "feature/lab2" ]
+    branches: [ "develop" ]
 
 jobs:
   build_test:
