@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>classroom.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">gs-maven</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">classroom.java</span></div><h1>classroom.java</h1><pre class="source lang-java linenums">public class classroom {
+    private String className;
+    private int numberOfStudents;
+    private boolean classIsOpen;
+
+<span class="fc" id="L6">    public classroom(String className) {</span>
+<span class="fc" id="L7">        this.className = className;</span>
+<span class="fc" id="L8">        this.numberOfStudents = 0;</span>
+<span class="fc" id="L9">        this.classIsOpen = false;</span>
+<span class="fc" id="L10">    }</span>
+
+    // Method 1: Set the classroom name
+    public void setClassName(String newName) {
+<span class="fc" id="L14">        this.className = newName;</span>
+<span class="fc" id="L15">    }</span>
+
+    // Method 2: Get the classroom name
+    public String getClassName() {
+<span class="fc" id="L19">        return className;</span>
+    }
+
+    // Method 3: Add a student to the classroom
+    public void addStudent(String studentName) {
+<span class="fc" id="L24">        numberOfStudents++;</span>
+<span class="fc" id="L25">    }</span>
+
+    // Method 4: Remove a student from the classroom
+    public void removeStudent(String studentName) {
+<span class="nc" id="L29">        numberOfStudents--;</span>
+<span class="nc" id="L30">    }</span>
+
+    // Method 5: Get the number of students in the classroom
+    public int getNumberOfStudents() {
+<span class="fc" id="L34">        return numberOfStudents;</span>
+    }
+
+    // Method 6: Open the classroom (vulnerable to unauthorized access)
+    public void openClassroom(String password) {
+<span class="fc bfc" id="L39" title="All 2 branches covered.">        if (password.equals(&quot;secretPassword123&quot;)) {</span>
+<span class="fc" id="L40">            classIsOpen = true;</span>
+<span class="fc" id="L41">            System.out.println(&quot;Classroom is now open.&quot;);</span>
+        } else {
+<span class="fc" id="L43">            System.out.println(&quot;Incorrect password. Access denied.&quot;);</span>
+        }
+<span class="fc" id="L45">    }</span>
+
+    // Method 7: Close the classroom (vulnerable to unauthorized access)
+    public void closeClassroom(String password) {
+<span class="nc bnc" id="L49" title="All 2 branches missed.">        if (password.equals(&quot;secretPassword123&quot;)) {</span>
+<span class="nc" id="L50">            classIsOpen = false;</span>
+<span class="nc" id="L51">            System.out.println(&quot;Classroom is now closed.&quot;);</span>
+        } else {
+<span class="nc" id="L53">            System.out.println(&quot;Incorrect password. Access denied.&quot;);</span>
+        }
+<span class="nc" id="L55">    }</span>
+
+    // Method 8: Get the classroom's open/closed status
+    public boolean isClassOpen() {
+<span class="fc" id="L59">        return classIsOpen;</span>
+    }
+
+    // Method 9: Vulnerable method - Execute a command without permission
+    public void executeCommand(String command) {
+<span class="pc bpc" id="L64" title="1 of 2 branches missed.">        if (classIsOpen) {</span>
+<span class="fc" id="L65">            System.out.println(&quot;Executing command: &quot; + command);</span>
+            // In a real-world scenario, this would be a security vulnerability.
+        } else {
+<span class="nc" id="L68">            System.out.println(&quot;Access denied. Classroom is closed.&quot;);</span>
+        }
+<span class="fc" id="L70">    }</span>
+
+    // Method 10: Vulnerable method - Access sensitive data without proper authorization
+    public String getSensitiveData(String dataName) {
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        if (classIsOpen) {</span>
+<span class="pc bpc" id="L75" title="1 of 2 branches missed.">            if (dataName.equals(&quot;grades&quot;)) {</span>
+<span class="fc" id="L76">                return &quot;Student grades: ...&quot;; // Insecure data access.</span>
+            } else {
+<span class="nc" id="L78">                return &quot;Access denied. Unknown data type.&quot;;</span>
+            }
+        } else {
+<span class="nc" id="L81">            return &quot;Access denied. Classroom is closed.&quot;;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
