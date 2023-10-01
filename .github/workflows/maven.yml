@@ -1,4 +1,4 @@
-name: Java Maven Build, Test, and SonarCloud Analysis
+name: SonarCloud Analysis
 
 on:
   pull_request:
@@ -48,4 +48,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=bhos-qa_l3-sonarcloud-samir-yagublu
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=bhos-qa_l4-branch-coverage-samir-yagublu
