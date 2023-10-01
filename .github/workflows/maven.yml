@@ -1,4 +1,4 @@
-name: Java Maven Build, Test, and SonarCloud Analysis
+name: Java Maven Build, Test, and SonarCloud Analysisa
 
 on:
   pull_request:
